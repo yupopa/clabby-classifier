@@ -13,10 +13,10 @@ def evaluate_image(img) -> str:
 
 def load_model():
     path = '/floyd/home'
-    classes = ['brian', 'charlie', 'jack', 'jimmy', 'luke', 'michael', 'peter']
+    classes = ["cat","dog"]
     data = ImageDataBunch.single_from_classes(path, classes, tfms=get_transforms(), size=224).normalize(imagenet_stats)
     learn = create_cnn(data, models.resnet34)
-    learn.load('clabby-stage-2')
+    learn.load('catdog-stage-2')
     return learn
 
 app = Flask(__name__)
