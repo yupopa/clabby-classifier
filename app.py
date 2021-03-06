@@ -6,6 +6,9 @@ from fastai.vision import *
 from flask import Flask, jsonify, request, render_template
 from werkzeug.exceptions import BadRequest
 from hints import fact_finder
+url = 'http://dl.dropboxusercontent.com/s/ppuxevbt0d6jcav/cdog.pkl?raw=1'
+filename = 'cdog.pkl'
+urlretrieve(url,filename)
 
 def evaluate_image(img) -> str:
     pred_class, pred_idx, outputs = trained_model.predict(img)
@@ -16,7 +19,7 @@ def load_model():
     classes = ["cat","dog"]
     data = ImageDataBunch.single_from_classes(path, classes, tfms=get_transforms(), size=224).normalize(imagenet_stats)
     learn = create_cnn(data, models.resnet34)
-    learn.load('catdog-stage-2')
+    learn.load('cdog')
     return learn
 
 app = Flask(__name__)
